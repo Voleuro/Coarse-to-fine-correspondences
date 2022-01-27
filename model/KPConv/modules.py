@@ -225,6 +225,9 @@ class KPConv(nn.Module):
         else:
             deformed_K_points = self.kernel_points
 
+        # Make sure the kernel points are on the same device as the neighbours
+        deformed_K_points = deformed_K_points.to(neighbors.device)
+
         # Get all difference matrices [n_points, n_neighbors, n_kpoints, dim]
         neighbors.unsqueeze_(2)
         differences = neighbors - deformed_K_points
@@ -301,9 +304,12 @@ class KPConv(nn.Module):
         if self.deformable and self.modulated:
             weighted_features *= modulations.unsqueeze(2)
 
+        # Make sure the weights are on the same device as the features
+        weights_gpu = self.weights.to(weighted_features.device)
+
         # Apply network weights [n_kpoints, n_points, out_fdim]
         weighted_features = weighted_features.permute((1, 0, 2))
-        kernel_outputs = torch.matmul(weighted_features, self.weights)
+        kernel_outputs = torch.matmul(weighted_features, weights_gpu)
 
         # Convolution sum [n_points, out_fdim]
         # return torch.sum(kernel_outputs, dim=0)

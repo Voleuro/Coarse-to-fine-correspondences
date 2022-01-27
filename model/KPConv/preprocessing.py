@@ -230,7 +230,7 @@ def calibrate_neighbors(dataset, config, collate_fn, keep_ratio=0.8, samples_thr
 
         if timer.total_time - last_display > 0.1:
             last_display = timer.total_time
-            print(f"Calib Neighbors {i:08d}: timings {timer.total_time:4.2f}s")
+            #print(f"Calib Neighbors {i:08d}: timings {timer.total_time:4.2f}s")
 
         if np.min(np.sum(neighb_hists, axis=1)) > samples_threshold:
             break
@@ -239,6 +239,6 @@ def calibrate_neighbors(dataset, config, collate_fn, keep_ratio=0.8, samples_thr
     percentiles = np.sum(cumsum < (keep_ratio * cumsum[hist_n - 1, :]), axis=0)
 
     neighborhood_limits = percentiles
-    print('\n')
+    #print("Calculated neighborhood limits ", neighborhood_limits)
 
     return neighborhood_limits
