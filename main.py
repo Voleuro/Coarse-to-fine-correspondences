@@ -78,7 +78,7 @@ def main():
     train_set, val_set, benchmark_set = get_dataset(config)
     config.train_loader, neighborhood_limits = get_dataloader(train_set,
                                                               batch_size=config.batch_size,
-                                                              num_workers=config.num_workers,
+                                                              num_workers=0, # Always zero to work on windows!
                                                               shuffle=True)
 
     config.val_loader, _ = get_dataloader(val_set,

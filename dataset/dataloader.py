@@ -48,7 +48,7 @@ def get_dataloader(dataset, batch_size=1, num_workers=4, shuffle=True, neighborh
         dataset,
         batch_size=batch_size,
         shuffle=shuffle,
-        num_workers=num_workers,
+        num_workers=0,
         collate_fn=partial(collate_fn_descriptor, config=dataset.config, neighborhood_limits=neighborhood_limits),
         drop_last=False
     )
