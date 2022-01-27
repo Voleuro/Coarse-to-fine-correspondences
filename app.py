@@ -127,6 +127,9 @@ if __name__ == '__main__':
     # Enable / Disable the GPU
     config.gpu_mode = True
 
+    # Set the path to the model
+    config.pretrain = './weights/best_3dmatch.pth'
+
     # Dataset settings
     #config.voxel_size = 0.025
     #config.augment_noise = 0.005
